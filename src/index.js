@@ -9,8 +9,6 @@ const mongoose = require("mongoose");
 const advertisement = require("./model");
 const credentials = require('./credentials');
 
-const uri = "mongodb+srv://amirhossein:amir13780729@amir78729.c47zrs5.mongodb.net/?retryWrites=true&w=majority";
-
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection;
