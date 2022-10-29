@@ -13,7 +13,7 @@ const Advertisement = new Schema(
     category: { type: String },
   },
   {
-    collection: 'Employees',
+    collection: 'Advertisement',
     timestamps: true,
   }
 );

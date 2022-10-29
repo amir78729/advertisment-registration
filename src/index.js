@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const Advertisement = require('./models/Advertisement');
 const credentials = require('./credentials');
 const AdvertisementDTO = require('./DTO/Advertisement');
-const { sendMail } = require('./services/mailgun')
+const { sendMail } = require('./services/mailgun');
+const { processImage } = require('./services/imagga');
 
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
 
@@ -32,6 +33,14 @@ app.get('/', (req, res) => {
 app.get('/ad', async (req, res) => {
     try {
         const data = await Advertisement.find({});
+        
+        // const processingResult = await processImage('https://stackify.com/wp-content/uploads/2018/12/Node.js-Module-Exports-881x441.jpg');
+        // if (processingResult?.isVehicleValid) {
+        //     console.log(processingResult?.category)
+        // } else {
+        //     console.log('not a vehicle')
+        // }
+        
         sendResponse(res, data?.map(_data => AdvertisementDTO.output(_data)));
     } catch (error) {
         sendError(res, error);
