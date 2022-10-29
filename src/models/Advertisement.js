@@ -5,9 +5,7 @@ const autoIncrementModelID = require('./counterModel');
 
 const Advertisement = new Schema(
   {
-    id: {
-      type: Number,
-    },
+    id: { type: Number, default: 0, index: true },
     description: {
       type: String
     },
@@ -35,7 +33,7 @@ Advertisement.pre('save', function (next) {
     next();
     return;
   }
-  autoIncrementModelID('advertisement', this, next);
+  autoIncrementModelID('Advertisement', this, next);
 });
 
 

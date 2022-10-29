@@ -16,14 +16,11 @@ const autoIncrementModelID = function (modelName, doc, next) {
     { $inc: { seq: 1 } }, // The update
     { new: true, upsert: true }, // The options
     (error, counter) => {
-      // The callback
       if (error) return next(error);
-      
-      // eslint-disable-next-line no-param-reassign
       doc.id = counter.seq;
       next();
     },
-  ); // ** Method call ends **
+  );
 };
 
 module.exports = autoIncrementModelID;

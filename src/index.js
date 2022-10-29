@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const sendError = require('./utils/errorHandler');
 const sendResponse = require('./utils/responseHandler');
 const mongoose = require("mongoose");
-const advertisement = require("./models/Advertisement");
+const Advertisement = require("./models/Advertisement");
 const credentials = require('./credentials');
 
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -16,7 +16,6 @@ const connection = mongoose.connection;
 connection.once("open", function() {
     console.log("MongoDB database connection established successfully");
 });
-
 
 const app = express();
 app.use(helmet());
@@ -30,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.get('/ad', async (req, res) => {
     try {
-        const data = await advertisement.find({});
+        const data = await Advertisement.find({});
         sendResponse(res, data);
     } catch (error) {
         sendError(res, error);
@@ -40,7 +39,7 @@ app.get('/ad', async (req, res) => {
 app.get('/ad/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await advertisement.find({ id });
+        const data = await Advertisement.find({ id });
         sendResponse(res, data);
     } catch (error) {
         sendError(res, error);
@@ -50,7 +49,7 @@ app.get('/ad/:id', async (req, res) => {
 app.delete('/ad/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await advertisement.deleteOne({ id });
+        const data = await Advertisement.deleteOne({ id });
         sendResponse(res, data);
     } catch (error) {
         sendError(res, error);
@@ -60,8 +59,8 @@ app.delete('/ad/:id', async (req, res) => {
 app.post('/ad', async (req, res) => {
     try {
         const { image, description, email } = req.body;
-        const data = await advertisement.insertMany({ id: 1, image, description, email, state: 'PENDING', category: 'UNKNOWN' });
-        // const data = { image, description, email };
+        const data = new Advertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
+        await data.save();
         sendResponse(res, data);
     } catch (error) {
         sendError(res, error);
