@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const sendError = require('./utils/errorHandler');
 const sendResponse = require('./utils/responseHandler');
 const mongoose = require("mongoose");
-const advertisement = require("./model");
+const advertisement = require("./models/Advertisement");
 const credentials = require('./credentials');
 
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
