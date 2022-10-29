@@ -5,16 +5,18 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const sendError = require('./utils/errorHandler');
 const sendResponse = require('./utils/responseHandler');
-const mongoose = require("mongoose");
-const Advertisement = require("./models/Advertisement");
+const mongoose = require('mongoose');
+const Advertisement = require('./models/Advertisement');
 const credentials = require('./credentials');
+const AdvertisementDTO = require('./DTO/Advertisement');
+const { sendMail } = require('./services/mailgun')
 
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const connection = mongoose.connection;
 
-connection.once("open", function() {
-    console.log("MongoDB database connection established successfully");
+connection.once('open', function() {
+    console.log('MongoDB database connection established successfully');
 });
 
 const app = express();
@@ -30,7 +32,7 @@ app.get('/', (req, res) => {
 app.get('/ad', async (req, res) => {
     try {
         const data = await Advertisement.find({});
-        sendResponse(res, data);
+        sendResponse(res, data?.map(_data => AdvertisementDTO.output(_data)));
     } catch (error) {
         sendError(res, error);
     }
@@ -39,8 +41,8 @@ app.get('/ad', async (req, res) => {
 app.get('/ad/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await Advertisement.find({ id });
-        sendResponse(res, data);
+        const data = await Advertisement.findOne({ id });
+        sendResponse(res, AdvertisementDTO.output(data));
     } catch (error) {
         sendError(res, error);
     }
@@ -61,7 +63,8 @@ app.post('/ad', async (req, res) => {
         const { image, description, email } = req.body;
         const data = new Advertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
         await data.save();
-        sendResponse(res, data);
+        // sendMail(email, 'ثبت آگهی', `آگهی شما با شناسه‌ی ${data?.id || '?'} ثبت گردید. وضعیت این آگهی پس از مدتی برای شما ارسال خواهد شد.`)
+        sendResponse(res, AdvertisementDTO.output(data), `آگهی شما با شناسه‌ی ${data?.id || '?'} ثبت گردید.`);
     } catch (error) {
         sendError(res, error);
     }

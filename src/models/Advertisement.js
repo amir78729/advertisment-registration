@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const autoIncrementModelID = require('./counterModel');
 
@@ -6,24 +6,14 @@ const autoIncrementModelID = require('./counterModel');
 const Advertisement = new Schema(
   {
     id: { type: Number, default: 0, index: true },
-    description: {
-      type: String
-    },
-    email: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    image: {
-      type: String
-    },
-    category: {
-      type: String
-    },
+    description: { type: String },
+    email: { type: String },
+    state: { type: String },
+    image: { type: String },
+    category: { type: String },
   },
   {
-    collection: "Employees",
+    collection: 'Employees',
     timestamps: true,
   }
 );
@@ -37,4 +27,4 @@ Advertisement.pre('save', function (next) {
 });
 
 
-module.exports = mongoose.model("advertisement", Advertisement);
+module.exports = mongoose.model('advertisement', Advertisement);
