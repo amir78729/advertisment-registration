@@ -4,7 +4,10 @@ Create a `sec/credentials.js` with this content:
 
 ```javascript
 const credentials = {
-  mongoUri: 'MONGO_URI'
+  mongoUri: '...',
+  mailgunDomain: '...',
+  mailgunApiKey: '...',
+  imaggaAuthorization: '...',
 }
 
 module.exports = credentials;

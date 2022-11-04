@@ -1,4 +1,4 @@
-function sendResponse(res, data, message) {
+function sendResponse({res, data, message}) {
     const result = {
         result: 'OK',
         ...(message && { message }),

@@ -1,13 +1,15 @@
 function sendError(res, error, message) {
   const codeString = error.codeString || error.code;
   const status = error?.status || 500;
-  res.status(status).json({
-    result: 'ERR',
+  
+  const result = {
+    result: 'OK',
     data: {
-      code: codeString,
-      message,
+      code: codeString || 'SERVER ERROR',
+      ...(message && { message }),
     },
-  });
+  };
+  res.status(status).json(result);
 }
 
 module.exports = sendError;
