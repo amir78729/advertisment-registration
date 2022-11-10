@@ -1,4 +1,4 @@
-const credentials = require('../credentials');
+const credentials = require('src/credentials');
 const mailgun = require('mailgun-js');
 const mg = mailgun({ apiKey: credentials.mailgunApiKey, domain: credentials.mailgunDomain });
 

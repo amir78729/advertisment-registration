@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Advertisement = require('../models/Advertisement');
-const credentials = require('../credentials');
+const credentials = require('src/credentials');
 const AdvertisementDTO = require("../DTO/Advertisement");
 
 mongoose.connect(credentials?.mongoUri, { useUnifiedTopology: true, useNewUrlParser: true });

@@ -1,4 +1,4 @@
-const credentials = require('../credentials');
+const credentials = require('src/credentials');
 const fetch = require('node-fetch');
 
 const processImage = async (image) => {

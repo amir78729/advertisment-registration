@@ -1,6 +1,6 @@
 Notes:
 
-Create a `sec/credentials.js` with this content:
+Create a `src/credentials.js` with this content:
 
 ```javascript
 const credentials = {
@@ -8,6 +8,7 @@ const credentials = {
   mailgunDomain: '...',
   mailgunApiKey: '...',
   imaggaAuthorization: '...',
+  ampqUrl: '...',
 }
 
 module.exports = credentials;
