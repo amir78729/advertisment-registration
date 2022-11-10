@@ -37,7 +37,6 @@ const addNewAdvertisement = async ({ image, description, email, state, category 
 
 const findLastId = async () => {
   const data = await Advertisement.find({}).sort({id: -1}).limit(1);
-  console.log(data[0]?.id);
   return data[0]?.id || -1;
 }
 

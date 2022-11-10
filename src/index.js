@@ -156,7 +156,6 @@ app.post('/ad', upload.single('image'), async (req, res) => {
     try {
         const { image, description, email, id } = req.body;
         const data = await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' })
-        console.log(data)
         // await uploadBasic(data.id);
         
         // sendMail(email, 'ثبت آگهی', `آگهی شما با شناسه‌ی ${data?.id || '?'} ثبت گردید. وضعیت این آگهی پس از مدتی برای شما ارسال خواهد شد.`)
