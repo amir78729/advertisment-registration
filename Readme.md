@@ -6,7 +6,6 @@ Cloud Computing Course Project
 
 </div>
 
----
 
 ## Architecture
 
@@ -27,6 +26,16 @@ graph TD;
 
 
 ## Developer Notes
+
+### Installing Packages
+
+Run the following command to install needed packages:
+
+```shell
+npm i
+```
+
+### Adding credential info to project
 
 Create a `src/credentials.js` with this content:
 
@@ -49,4 +58,13 @@ const credentials = {
 }
 
 module.exports = credentials;
+```
+
+### Starting servers
+
+Following command will start **server A** on port `3001` and **server B** on port `3002` and 
+clients will be able to sent their request to server A.
+
+```shell
+node src  # running src/index.js
 ```
