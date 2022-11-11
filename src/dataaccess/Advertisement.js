@@ -38,6 +38,11 @@ const addNewAdvertisement = async ({ image, description, email, state, category 
 const findLastId = async () => {
   const data = await Advertisement.find({}).sort({id: -1}).limit(1);
   return data[0]?.id || -1;
+};
+
+const updateAdById = async (id, update) => {
+  const data = await Advertisement.findOneAndUpdate({ id }, update, { new: true });
+  return AdvertisementDTO.output(data);
 }
 
 
@@ -47,5 +52,6 @@ module.exports = {
   getAdvertisementById,
   addNewAdvertisement,
   findLastId,
-  removeAllAdvertisements
+  removeAllAdvertisements,
+  updateAdById,
 };

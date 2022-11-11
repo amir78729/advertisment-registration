@@ -18,6 +18,7 @@ const {
 const fetch = require('node-fetch');
 
 const publishToQueue = require('../services/ampq/publisher');
+const {sendMail} = require("../services/mailgun");
 // const {GoogleAuth} = require("google-auth-library");
 // const {google} = require("googleapis");
 // const fs = require("fs");
@@ -74,7 +75,6 @@ const storage = multer.diskStorage({
     const index = await findLastId();
     const fileName = `${index + 1}.${file?.mimeType?.split('/')[1] || 'jpg'}`;
     req.body.id = index + 1;
-    // const fileName = file.originalname.toLowerCase().split(' ').join('-');
     cb(null, fileName)
   }
 });

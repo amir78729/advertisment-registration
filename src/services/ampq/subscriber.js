@@ -1,10 +1,5 @@
-const amqp = require("amqplib/callback_api");
-const credential = require("../../credentials");
-
-const subscribeFromQueue = () => {
+const subscribeFromQueue = (handleResponse) => {
   const credential = require('../../credentials')
-  
-  
   const amqp = require('amqplib/callback_api');
   
   amqp.connect(credential.amqp.url, (error0, connection) => {
@@ -17,14 +12,10 @@ const subscribeFromQueue = () => {
       channel.assertQueue(queue, { durable: false });
       
       console.log(`[ServerB/RabbitMQ] connected to RabbitMQ on queue "${queue}"`);
-      channel.consume(queue, (msg) => {
-        console.log("[ServerB/RabbitMQ] Received %s", msg.content.toString());
-      }, {
-        noAck: true
-      });
+      channel.consume(queue, handleResponse, { noAck: true });
     });
   });
-}
+};
 
 module.exports = subscribeFromQueue;
 

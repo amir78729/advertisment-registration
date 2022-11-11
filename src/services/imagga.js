@@ -9,8 +9,9 @@ const processImage = async (image) => {
   })
   const processingData = await response.json();
   const vehicleData = processingData?.result?.tags?.filter(item => item.tag?.en === 'vehicle')[0];
+  
   return {
-    isVehicleValid: !!(vehicleData && vehicleData?.confidence > 50),
+    state: !!(vehicleData && vehicleData?.confidence > 50) ? 'APPROVED' : 'REJECTED',
     category: processingData?.result?.tags[0].tag?.en,
   }
 }
