@@ -2,6 +2,8 @@
 
 # Advertisement Registration using Cloud Services
 
+Cloud Computing Course Project
+
 </div>
 
 ---
