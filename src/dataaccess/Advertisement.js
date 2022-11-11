@@ -8,7 +8,7 @@ mongoose.connect(credentials?.mongodb.url, { useUnifiedTopology: true, useNewUrl
 const connection = mongoose.connection;
 
 connection.once('open', function() {
-  console.log('MongoDB database connection established successfully');
+  console.log('[MongoDB] connection established successfully');
 });
 
 const getAdvertisements = async () => {
@@ -41,4 +41,11 @@ const findLastId = async () => {
 }
 
 
-module.exports = { getAdvertisements, removeAdvertisementById, getAdvertisementById, addNewAdvertisement, findLastId, removeAllAdvertisements }
+module.exports = {
+  getAdvertisements,
+  removeAdvertisementById,
+  getAdvertisementById,
+  addNewAdvertisement,
+  findLastId,
+  removeAllAdvertisements
+};
