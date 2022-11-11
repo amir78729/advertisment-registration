@@ -1,10 +1,10 @@
-const credentials = require('src/credentials');
+const credentials = require('../credentials');
 const mailgun = require('mailgun-js');
-const mg = mailgun({ apiKey: credentials.mailgunApiKey, domain: credentials.mailgunDomain });
+const mg = mailgun({ apiKey: credentials.mailgun.apiKey, domain: credentials.mailgun.domain });
 
 const sendMail = (to, subject, text) => {
   const mail = {
-    from: `Advertisement Registration <personal@${credentials.mailgunDomain}>`,
+    from: `Advertisement Registration <mailgun@${credentials.mailgun.domain}>`,
     to,
     subject,
     text,

@@ -1,10 +1,10 @@
-const credentials = require('src/credentials');
+const credentials = require('../credentials');
 const fetch = require('node-fetch');
 
 const processImage = async (image) => {
   const response = await fetch(`https://api.imagga.com/v2/tags?image_url=${image}`, {
     headers: {
-      Authorization: credentials.imaggaAuthorization,
+      Authorization: credentials.imagga.authorization,
     }
   })
   const processingData = await response.json();

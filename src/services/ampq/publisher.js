@@ -1,10 +1,16 @@
-const jackrabbit = require('jackrabbit');
-const credential = require('src/credentials')
+const publishToQueue = async (msg) => {
+  const credential = require('../../credentials')
+  const amqp = require('amqplib');
+  
+  const connection = await amqp.connect(credential.amqp.url)
+  const q = credential.amqp.queueKey;
+  const channel = await connection.createChannel()
+  await channel.assertQueue(q, { durable: false })
+  await channel.sendToQueue(q, Buffer.from(msg))
+  
+  setTimeout(async () => {
+    await connection.close()
+  }, 500);
+}
 
-const rabbit = jackrabbit(credential.ampqUrl);
-const exchange = rabbit.default();
-
-const hello = exchange.queue({ name: 'example_queue', durable: true });
-
-//publish message
-exchange.publish({ msg: 'Hello CloudAMQP' }, { key: 'example_queue' });
+module.exports = publishToQueue;

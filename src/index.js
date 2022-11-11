@@ -15,7 +15,11 @@ const { getAdvertisements,
     removeAdvertisementById,
     removeAllAdvertisements,
     addNewAdvertisement,
-    findLastId } = require('./dataaccess/Advertisement')
+    findLastId } = require('./dataaccess/Advertisement');
+
+const subscribeFromQueue = require('./services/ampq/subscriber');
+const publishToQueue = require('./services/ampq/publisher');
+
 // const upload = multer();
 
 const app = express();
@@ -106,8 +110,16 @@ app.post('/add', upload.single('image'), async (req, res, next) => {
     sendResponse({res, data: []})
 })
 
-app.get('/', (req, res) => {
-    res.send([]);
+app.get('/', async (req, res) => {
+    await publishToQueue('this is a test');
+    const data = await subscribeFromQueue();
+    console.log('data', data)
+    sendResponse({res, data})
+});
+
+app.get('/x', async (req, res) => {
+    const data = await subscribeFromQueue();
+    sendResponse({res, data});
 });
 
 app.get('/ad', async (req, res) => {
@@ -149,18 +161,16 @@ app.delete('/ad', async (req, res) => {
 });
 
 app.post('/ad', upload.single('image'), async (req, res) => {
-    console.log({
-        name: req.body,
-        imageURL: req.file.path
-    })
     try {
         const { image, description, email, id } = req.body;
-        const data = await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' })
+        const data = await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
+        await publishToQueue(id.toString());
+        
+        
         // await uploadBasic(data.id);
         
         // sendMail(email, 'ثبت آگهی', `آگهی شما با شناسه‌ی ${data?.id || '?'} ثبت گردید. وضعیت این آگهی پس از مدتی برای شما ارسال خواهد شد.`)
         sendResponse({res, message: `آگهی شما با شناسه‌ی ${id ?? '?'} ثبت گردید.`});
-        // sendResponse(res, {});
     } catch (error) {
         sendError(res, error);
     }
