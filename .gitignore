@@ -1,4 +1,5 @@
 /node_modules
 **/credentials.js
+**/.DS_Store
 .idea
 package-lock.json

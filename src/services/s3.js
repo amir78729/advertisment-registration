@@ -1,30 +1,25 @@
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
-const fs = require('fs');
-const path = require('path');
+const uploadFileIntoS3 = async (file, key) => {
+    const { S3Client, PutObjectCommand, ListObjectsCommand } = require('@aws-sdk/client-s3');
+    const fs = require('fs');
+    const path = require('path');
+    const credentials = require('../credentials');
 
-// Create an S3 client service object
-const s3 = new S3Client({
-    region: 'default',
-    endpoint: 'endpoint_url',
-    credentials: {
-        accessKeyId: 'access_key',
-        secretAccessKey: 'secret_key',
-    },
-});
+    const s3 = new S3Client({
+        region: credentials.s3.region,
+        endpoint: credentials.s3.endpointUrl,
+        credentials: {
+            accessKeyId: credentials.s3.accessKey,
+            secretAccessKey: credentials.s3.secretKey,
+        },
+    });
 
-const uploadParams = {
-    Bucket: 'sample_bucket', // bucket name
-    Key: 'object-name', // the name of the selected file
-    ACL: 'public-read', // 'private' | 'public-read'
-    Body: 'BODY',
-};
+    const uploadParams = {
+        Bucket: credentials.s3.bucketName, 
+        Key: key, 
+        ACL: 'public-read',
+        Body: 'BODY',
+    };
 
-// BODY (the contents of the uploaded file - leave blank/remove to retain contents of original file.)
-const file = 'file.png'; //FILE_NAME (the name of the file to upload (if you don't specify KEY))
-
-// call S3 to retrieve upload file to specified bucket
-const run = async () => {
-    // Configure the file stream and obtain the upload parameters
     const fileStream = fs.createReadStream(file);
     fileStream.on('error', function (err) {
         console.log('File Error', err);
@@ -41,4 +36,4 @@ const run = async () => {
     }
 };
 
-run();
+module.exports = { uploadFileIntoS3 };
