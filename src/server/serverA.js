@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const sendError = require('../utils/errorHandler');
 const sendResponse = require('../utils/responseHandler');
+const credentials = require('../credentials');
 const multer = require('multer');
 const {
   getAdvertisements,
@@ -14,12 +15,8 @@ const {
   addNewAdvertisement,
   findLastId
 } = require('../dataaccess/Advertisement');
-const { uploadFilesIntoS3 } = require('../services/s3');
-
-const fetch = require('node-fetch');
-
+const { uploadFileIntoS3 } = require('../services/s3');
 const publishToQueue = require('../services/ampq/publisher');
-const {sendMail} = require("../services/mailgun");
 
 const serverA = express();
 serverA.use(helmet());
@@ -37,6 +34,7 @@ const storage = multer.diskStorage({
     const index = await findLastId();
     const fileName = `${index + 1}.${file?.mimeType?.split('/')[1] || 'jpg'}`;
     req.body.id = index + 1;
+    req.body.image = `${credentials.s3.bucketContentUrlPrefix}${index + 1}.jpg`
     cb(null, fileName)
   }
 });
@@ -89,8 +87,8 @@ serverA.post('/ad', upload.single('image'), async (req, res) => {
   try {
     const { image, description, email, id } = req.body;
     await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
-    await publishToQueue(id.toString());
-    await uploadFilesIntoS3(`${PATH}id.png`, id ); // TODO: test this
+    await uploadFileIntoS3(`${PATH}${id}.jpg`, id ); // TODO: test this
+    await publishToQueue(id?.toString());
     sendResponse({res, message: `آگهی شما با شناسه‌ی ${id ?? '?'} ثبت گردید.`});
   } catch (error) {
     sendError(res, error);

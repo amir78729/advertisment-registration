@@ -1,0 +1,1 @@
+Uploaded images will store in this directory.

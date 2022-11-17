@@ -11,7 +11,7 @@ const subscribeFromQueue = (handleResponse) => {
       const queue = credential.amqp.queueKey;
       channel.assertQueue(queue, { durable: false });
       
-      console.log(`[ServerB/RabbitMQ] connected to RabbitMQ on queue "${queue}"`);
+      console.log(`✅ [ServerB/RabbitMQ] connected to RabbitMQ on queue "${queue}"`);
       channel.consume(queue, handleResponse, { noAck: true });
     });
   });

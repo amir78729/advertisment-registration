@@ -1,9 +1,9 @@
-const uploadFileIntoS3 = async (file, key) => {
-    const { S3Client, PutObjectCommand, ListObjectsCommand } = require('@aws-sdk/client-s3');
-    const fs = require('fs');
-    const path = require('path');
-    const credentials = require('../credentials');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const fs = require('fs');
+const path = require('path');
+const credentials = require('../credentials');
 
+const uploadFileIntoS3 = async (file, key) => {
     const s3 = new S3Client({
         region: credentials.s3.region,
         endpoint: credentials.s3.endpointUrl,
@@ -24,15 +24,16 @@ const uploadFileIntoS3 = async (file, key) => {
     fileStream.on('error', function (err) {
         console.log('File Error', err);
     });
+
     uploadParams.Key = path.basename(file);
-    // call S3 to upload file to specified bucket
     uploadParams.Body = fileStream;
 
     try {
+        console.log(`⏳ [ServerA/S3] sending file to s3...`);
         const data = await s3.send(new PutObjectCommand(uploadParams));
-        console.log('Success', data);
+        console.log('✅ [ServerA/S3] file was sent successfully', data);
     } catch (err) {
-        console.log('Error', err);
+        console.log('❌ [ServerA/S3] error while sending file', err);
     }
 };
 
