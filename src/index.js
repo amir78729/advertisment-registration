@@ -8,4 +8,4 @@ const fetch = require('node-fetch');
     });
 });
 
-fetch('http://localhost:3002').then(() => console.log(`⏳ [${serverB.name}/RabbitMQ] connecting to RabbitMQ...`));
+fetch(`http://localhost:${serverB.port}`).then(() => console.log(`⏳ [${serverB.name}/RabbitMQ] connecting to RabbitMQ...`));
