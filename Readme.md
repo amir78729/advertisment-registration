@@ -71,11 +71,12 @@ node src  # running src/index.js
 
 ### APIs
 
-#### **`[GET]` Check Server A**
+#### ![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle) **Check Server A**
 
  ```
  localhost:3001/
  ```
+ 
 
 response Example:
 
@@ -87,7 +88,7 @@ response Example:
 ```
 
 
-#### **`[GET]` Get List of Advertisements**
+#### ![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle) **Get List of Advertisements**
 
  ```
  localhost:3001/ad
@@ -121,7 +122,7 @@ response Example:
 ```
 
 
-#### **`[GET]` Get a single Advertisements**
+#### ![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle) **Get a single Advertisements**
 
  ```
  localhost:3001/ad/:id
@@ -143,7 +144,9 @@ response Example:
 }
 ```
 
-####  **`[POST]`  Submiting an Advertisement**
+![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle)
+
+#### ![](https://img.shields.io/badge/-POST-darkblue?style=flat-circle) **Submiting an Advertisement**
 
  ```
  localhost:3001/ad
@@ -174,7 +177,7 @@ response Example:
 }
 ```
 
-####  **`[DELETE]`  Removing an Advertisement**
+#### ![](https://img.shields.io/badge/-DELETE-darkred?style=flat-circle) **Removing an Advertisement**
 
  ```
  localhost:3001/ad/:id
@@ -193,7 +196,7 @@ response Example:
 ```
 
 
-####  **`[DELETE]`  Removing All Advertisement**
+####  ![](https://img.shields.io/badge/-DELETE-darkred?style=flat-circle) **Removing All Advertisement**
 
  ```
  localhost:3001/ad
