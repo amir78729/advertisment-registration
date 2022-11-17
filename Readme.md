@@ -87,6 +87,7 @@ response Example:
 }
 ```
 
+---
 
 #### ![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle) **Get List of Advertisements**
 
@@ -116,11 +117,11 @@ response Example:
             "category": "sports car",
             "image": "..."
         },
-        ...
     ]
 }
 ```
 
+---
 
 #### ![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle) **Get a single Advertisements**
 
@@ -144,7 +145,7 @@ response Example:
 }
 ```
 
-![](https://img.shields.io/badge/-GET-darkgreen?style=flat-circle)
+---
 
 #### ![](https://img.shields.io/badge/-POST-darkblue?style=flat-circle) **Submiting an Advertisement**
 
@@ -177,6 +178,8 @@ response Example:
 }
 ```
 
+---
+
 #### ![](https://img.shields.io/badge/-DELETE-darkred?style=flat-circle) **Removing an Advertisement**
 
  ```
@@ -195,6 +198,7 @@ response Example:
 }
 ```
 
+---
 
 ####  ![](https://img.shields.io/badge/-DELETE-darkred?style=flat-circle) **Removing All Advertisement**
 
