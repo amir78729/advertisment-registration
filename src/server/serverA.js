@@ -86,10 +86,10 @@ serverA.delete('/ad', async (req, res) => {
 serverA.post('/ad', upload.single('image'), async (req, res) => {
   try {
     const { image, description, email, id } = req.body;
-    await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
+    const data = await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
     await uploadFileIntoS3(`${PATH}${id}.jpg`, id ); // TODO: test this
     await publishToQueue(id?.toString());
-    sendResponse({res, message: `آگهی شما با شناسه‌ی ${id ?? '?'} ثبت گردید.`});
+    sendResponse({res, message: `آگهی شما با شناسه‌ی ${id ?? '?'} ثبت گردید.`, data: {...data, id}});
   } catch (error) {
     sendError(res, error);
   }
