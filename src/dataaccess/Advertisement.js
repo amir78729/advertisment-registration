@@ -29,7 +29,7 @@ const removeAllAdvertisements = async () => {
 
 const getAdvertisementById = async (id) => {
   console.log(`💿 [MongoDB] getting advertisement with id = ${id}...`);
-  const advertisement = await Advertisement.deleteOne({ id });
+  const advertisement = await Advertisement.findOne({ id });
   return AdvertisementDTO.output(advertisement);
 };
 
