@@ -1,13 +1,14 @@
 {
   "name": "advertisment-registration",
   "version": "1.0.0",
-  "description": "",
+  "description": "an advertisment registration system using cloud services",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src"
   },
   "keywords": [],
-  "author": "",
+  "author": "Amirhossein Alibakhshi <amirhosseinalibakhshi@gmail.com> (https://github.com/amir78729)",
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.209.0",
