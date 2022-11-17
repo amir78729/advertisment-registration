@@ -25,7 +25,7 @@ graph TD;
 ```
 
 
-## Developer Notes
+## Instructions
 
 ### Installing Packages
 
@@ -68,3 +68,146 @@ clients will be able to sent their request to server A.
 ```shell
 node src  # running src/index.js
 ```
+
+### APIs
+
+#### **`[GET]` Check Server A**
+
+ ```
+ localhost:3001/
+ ```
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "message": "Server A is UP!"
+}
+```
+
+
+#### **`[GET]` Get List of Advertisements**
+
+ ```
+ localhost:3001/ad
+ ```
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "data": [
+        {
+            "id": 1,
+            "description": "a simple description",
+            "email": "test@example.com",
+            "state": "PENDING",
+            "category": "UNKNOWN",
+            "image": "..."
+        },
+        {
+            "id": 2,
+            "description": "a great red sport car!",
+            "email": "example@example.com",
+            "state": "APPROVED",
+            "category": "sports car",
+            "image": "..."
+        },
+        ...
+    ]
+}
+```
+
+
+#### **`[GET]` Get a single Advertisements**
+
+ ```
+ localhost:3001/ad/:id
+ ```
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "data": {
+        "id": 2,
+        "description": "a great red sport car!",
+        "email": "example@example.com",
+        "state": "APPROVED",
+        "category": "sports car",
+        "image": "..."
+    }
+}
+```
+
+####  **`[POST]`  Submiting an Advertisement**
+
+ ```
+ localhost:3001/ad
+ ```
+
+Body (Form Data):
+
+| Field Name  | Type        |
+|-------------|-------------|
+| image       | File (.jpg) |
+| email       | String      |
+| description | String      |
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "message": "آگهی شما با شناسه‌ی 3 ثبت گردید.",
+    "data": {
+        "id": 3,
+        "description": "a simple description",
+        "email": "test@example.com",
+        "state": "PENDING",
+        "image": "...",
+        "category": "UNKNOWN"
+    }
+}
+```
+
+####  **`[DELETE]`  Removing an Advertisement**
+
+ ```
+ localhost:3001/ad/:id
+ ```
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "data": {
+        "acknowledged": true,
+        "deletedCount": 1
+    }
+}
+```
+
+
+####  **`[DELETE]`  Removing All Advertisement**
+
+ ```
+ localhost:3001/ad
+ ```
+
+response Example:
+
+```json
+{
+    "result": "OK",
+    "data": {
+        "acknowledged": true,
+        "deletedCount": 20
+    }
+}
+```
+
