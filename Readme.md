@@ -24,6 +24,20 @@ graph TD;
     S3-->ServerB;
 ```
 
+## Sequence Diagram
+
+
+```mermaid
+sequenceDiagram
+    Client->>+ServerA: Request
+    ServerA->>+MongoAtlas: Add Data to Database
+    MongoAtlas-->>-ServerA: ACK
+    ServerA->>+ArvanCloudS3: Upload Image to S3
+    ArvanCloudS3-->>-ServerA: ACK
+    ServerA->>+AmqpCloud: Send ID
+    AmqpCloud-->>-ServerA: ACK
+    ServerA-->>-Client: Response
+```
 
 ## Instructions
 
