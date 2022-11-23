@@ -29,14 +29,25 @@ graph TD;
 
 ```mermaid
 sequenceDiagram
-    Client->>+ServerA: Request
-    ServerA->>+MongoAtlas: Add Data to Database
-    MongoAtlas-->>-ServerA: ACK
-    ServerA->>+ArvanCloudS3: Upload Image to S3
-    ArvanCloudS3-->>-ServerA: ACK
-    ServerA->>+AmqpCloud: Send ID
-    AmqpCloud-->>-ServerA: ACK
-    ServerA-->>-Client: Response
+    loop ServerA: Listenint to Client
+        Client->>+ServerA: Request
+        ServerA->>+MongoAtlas: Add Data to Database
+        MongoAtlas-->>-ServerA: ACK
+        ServerA->>+ArvanCloudS3: Upload Image to S3
+        ArvanCloudS3-->>-ServerA: ACK
+        ServerA->>+AmqpCloud: Send ID
+        AmqpCloud-->>-ServerA: ACK
+        ServerA-->>-Client: Response
+    end
+    loop ServerB: Listening to Queue
+        AmqpCloud-->>+ServerB: ID
+        ServerB-->>+Imagga: Image URL
+        Imagga-->>-ServerB: Process Result
+        ServerB->>+MongoAtlas: Update Ad Status
+        MongoAtlas-->>-ServerB: ACK
+        ServerB->>+Mailgun: Send Email
+        Mailgun-->>-ServerB: ACK
+    end
 ```
 
 ## Instructions
