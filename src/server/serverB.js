@@ -1,5 +1,5 @@
 const http = require('http');
-const subscribeFromQueue = require('../services/ampq/subscriber');
+const subscribeFromQueue = require('../services/amqp/subscriber');
 const { processImage } = require('../services/imagga');
 const { sendMail } = require('../services/mailgun');
 const { updateAdById } = require('../dataaccess/Advertisement');

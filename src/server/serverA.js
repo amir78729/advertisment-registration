@@ -16,7 +16,7 @@ const {
   findLastId
 } = require('../dataaccess/Advertisement');
 const { uploadFileIntoS3 } = require('../services/s3');
-const publishToQueue = require('../services/ampq/publisher');
+const publishToQueue = require('../services/amqp/publisher');
 
 const serverA = express();
 serverA.use(helmet());
@@ -87,7 +87,7 @@ serverA.post('/ad', upload.single('image'), async (req, res) => {
   try {
     const { image, description, email, id } = req.body;
     const data = await addNewAdvertisement({ image, description, email, state: 'PENDING', category: 'UNKNOWN' });
-    await uploadFileIntoS3(`${PATH}${id}.jpg`, id ); // TODO: test this
+    await uploadFileIntoS3(`${PATH}${id}.jpg`, id );
     await publishToQueue(id?.toString());
     sendResponse({res, message: `آگهی شما با شناسه‌ی ${id ?? '?'} ثبت گردید.`, data: {...data, id}});
   } catch (error) {
