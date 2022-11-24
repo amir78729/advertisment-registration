@@ -1,11 +1,12 @@
 {
-  "name": "advertisment-registration",
+  "name": "advertisement-registration",
   "version": "1.0.0",
-  "description": "an advertisment registration system using cloud services",
+  "description": "an advertisement registration system using cloud services",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src"
+    "start": "node src",
+    "start-server-a": "node src/server/serverA.js",
+    "start-server-b": "node src/server/serverB.js.js"
   },
   "keywords": [],
   "author": "Amirhossein Alibakhshi <amirhosseinalibakhshi@gmail.com> (https://github.com/amir78729)",
